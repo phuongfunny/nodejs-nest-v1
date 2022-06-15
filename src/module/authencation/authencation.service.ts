@@ -2,10 +2,10 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { DataCreated, TokenSuccess } from 'src/constant/ThrowData';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
-import { UpdateUserDto } from 'src/user/dto/update-user.dto';
-import { User } from 'src/user/user.interface';
-import { UserService } from 'src/user/user.service';
+import { CreateUserDto } from 'src/module/user/dto/create-user.dto';
+import { UpdateUserDto } from 'src/module/user/dto/update-user.dto';
+import { User } from 'src/module/user/user.interface';
+import { UserService } from 'src/module/user/user.service';
 import { UpdateAuthencationDto } from './dto/update-authencation.dto';
 
 @Injectable()
