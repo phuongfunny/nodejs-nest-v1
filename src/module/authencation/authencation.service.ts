@@ -10,7 +10,10 @@ import { UpdateAuthencationDto } from './dto/update-authencation.dto';
 
 @Injectable()
 export class AuthencationService {
-  constructor(private usersService: UserService, private jwtService: JwtService) {}
+  constructor(
+    private usersService: UserService,
+    private jwtService: JwtService,
+  ) {}
 
   async hashPassword(password: string): Promise<string> {
     return bcrypt.hash(password, 12);
@@ -60,7 +63,6 @@ export class AuthencationService {
     const userData = await this.usersService._getUserByUsername(username);
 
     if (!userData) return null;
-      
 
     const passwordMatched = await this.checkPassword(
       password,
@@ -73,14 +75,20 @@ export class AuthencationService {
     return this.usersService._getUserDetail(userData);
   }
 
-  async loginUser(existingUser: UpdateUserDto): Promise<{ token: string } | null> {
+  async loginUser(
+    existingUser: UpdateUserDto,
+  ): Promise<{ token: string } | null> {
     const { username, password } = existingUser;
-    const user = await this.validateUser(username, password)
-    
-    if(!user) throw new HttpException('Username does not exist', HttpStatus.BAD_REQUEST);
-    
-    const jwt = await this.jwtService.signAsync({ username })
-    
-    return TokenSuccess(jwt)
+    const user = await this.validateUser(username, password);
+
+    if (!user)
+      throw new HttpException(
+        'Username does not exist',
+        HttpStatus.BAD_REQUEST,
+      );
+
+    const jwt = await this.jwtService.signAsync({ username });
+
+    return TokenSuccess(jwt);
   }
 }

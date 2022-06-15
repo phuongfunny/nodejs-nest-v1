@@ -1,6 +1,6 @@
-import { HttpStatus } from "@nestjs/common";
+import { HttpStatus } from '@nestjs/common';
 
-export const DataCreated = ( dt: any) => {
+export const DataCreated = (dt: any) => {
   return {
     status: HttpStatus.CREATED,
     data: dt,
