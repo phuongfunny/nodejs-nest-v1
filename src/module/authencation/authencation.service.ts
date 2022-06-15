@@ -1,12 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { DataCreated, TokenSuccess } from 'src/constant/ThrowData';
+import { TokenSuccess } from 'src/constant/ThrowData';
 import { CreateUserDto } from 'src/module/user/dto/create-user.dto';
 import { UpdateUserDto } from 'src/module/user/dto/update-user.dto';
 import { User } from 'src/module/user/user.interface';
 import { UserService } from 'src/module/user/user.service';
-import { UpdateAuthencationDto } from './dto/update-authencation.dto';
 
 @Injectable()
 export class AuthencationService {
@@ -47,8 +46,11 @@ export class AuthencationService {
           first_name,
           last_name,
         });
+        const jwt = await this.jwtService.signAsync({
+          username: newUser.username,
+        });
 
-        return DataCreated(newUser);
+        return TokenSuccess(jwt);
     }
   }
 

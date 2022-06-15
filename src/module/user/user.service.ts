@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { GetSuccess } from 'src/constant/ThrowData';
 import { Users, UsersDocument } from 'src/module/user/schema/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './user.interface';
+import { DataThrowUser, User } from './user.interface';
 
 @Injectable()
 export class UserService {
@@ -30,10 +31,11 @@ export class UserService {
     return this.usersModel.findOne({ username }).exec();
   }
 
-  async _getUserById(id: string): Promise<User | null> {
+  async _getUserById(id: string): Promise<DataThrowUser | null> {
     try {
       const user = await this.usersModel.findById(id).exec();
-      return this._getUserDetail(user);
+      const userData = this._getUserDetail(user);
+      return GetSuccess(userData);
     } catch (error) {
       throw new HttpException('User not existing!', HttpStatus.BAD_REQUEST);
     }
