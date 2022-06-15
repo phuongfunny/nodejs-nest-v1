@@ -10,7 +10,7 @@ import { UserModule } from './module/user/user.module';
   imports: [
     ConfigModule.forRoot(),
     AuthencationModule,
-    MongooseModule.forRoot('mongodb://localhost/karaoke_booking'),
+    MongooseModule.forRoot(`${process.env.DB_CONNECT_URL}`),
     UserModule,
   ],
   controllers: [AppController],
