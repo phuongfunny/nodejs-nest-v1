@@ -3,8 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthencationModule } from './authencation/authencation.module';
-import { UserModule } from './user/user.module';
+import { AuthencationModule } from './module/authencation/authencation.module';
+import { UserModule } from './module/user/user.module';
 
 @Module({
   imports: [
